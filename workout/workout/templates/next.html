@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Kreeda.ai</title>
+    <script src="https://unpkg.com/paper"></script>
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils@0.1/control_utils.css" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils@0.1/camera_utils.js"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils@0.1/control_utils.js"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils@0.2/drawing_utils.js"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose@0.2/pose.js" crossorigin="anonymous"></script>
+
+    <style>
+        .circle {
+            padding-bottom: 2px;
+            width: 100%;
+            height: 100%;
+            fill: transparent;
+            stroke-width: 6;
+            stroke-linecap: round;
+            stroke: #007eff;
+            stroke-dasharray: 427;
+            transition: stroke-dashoffset 0.5s ease;
+
+        }
+
+        .circle.active {
+            padding-bottom: 2px;
+            width: 100%;
+            height: 100%;
+            fill: transparent;
+            stroke-width: 6;
+            stroke-linecap: round;
+            stroke: rgb(204, 186, 21);
+            stroke-dasharray: 427;
+            transition: stroke-dashoffset 0.5s ease;
+        }
+
+        .box {
+            /* animation: animate 1.5s ease-in-out infinite; */
+            animation: animate 2s forwards infinate;
+        }
+
+        @keyframes animate {
+            0% {
+                scale: 0.8;
+            }
+
+            100% {
+                scale: 1;
+
+            }
+
+
+        }
+
+        .output5.active {
+            opacity: 0.2;
+        }
+
+        /* .gif.active {
+            display: "";
+            position: absolute;
+            background-color: black;
+            width: 30%;
+            height: 40%;
+            left: 40%;
+            top: 30%;
+            z-index: 25;
+            animation: intro 2s ease;
+        }
+
+        .gif {
+            display: block;
+            position: absolute;
+            background-color: white;
+            width: 30%;
+            height: 40%;
+            z-index: 25;
+            animation: graphic 2s ease;
+            left: 2%;
+            bottom: 5%
+        } */
+
+        .calorie {
+            display: block;
+            position: absolute;
+            background-color: transparent;
+            width: 25%;
+            height: 30%;
+            z-index: 25;
+            left: 1%;
+            top: 25%;
+            animation: flames 1s ease-in-out infinite;
+        }
+        @keyframes flames {
+            0%{
+                transform: translateY(-10%);
+            }
+            
+            
+        }
+
+        @keyframes graphic {
+            0% {
+                transform: translate(100%, -100%);
+            }
+
+            100% {
+                transform: translate(2%, 0%);
+            }
+        }
+
+        @keyframes intro {
+            0% {
+                scale: 0;
+            }
+
+            100% {
+                scale: 1;
+            }
+        }
+    </style>
+
+</head>
+
+<body
+    style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">
+    <div
+        style="position:relative;width: 100%; height: 100vh;display: flex;align-items: center;justify-content: space-between;gap: 20px;">
+
+        <canvas id="ourcanva" class="output5" width="1280" height="720"
+            style="width: 100%; height: 100%; transform: scaleX(-1);position: absolute;z-index: 10;"></canvas>
+        <video hidden="hidden" class="input_video5 bg-black" style="transform: scaleX(-1);"></video>
+        <div class="box" id="attendance"
+            style="position: absolute;height: 180px;width: 180px;background:transparent;z-index: 20;top:2%;right: 5%;">
+
+            <svg
+                style="position: absolute;height: 160px;width: 160px;left: 50%;top:50%;transform: translate(-50%,-50%) rotate(270deg);">
+
+                <circle id="circularbar" class="circle" cx="70" cy="70" r="68"></circle>
+            </svg>
+            <div style="position: absolute;left: 45%;top:55%;transform: translate(-50%,-50%);width: 100%;height: 50px;color: black;text-align: center;overflow: hidden;"
+                class="counter">
+                <span id="timer" style="font-size: 28px;line-height: 50px;font-weight: bolder;" class="color1"></span>
+            </div>
+
+        </div>
+        <div style="position: absolute;top: 5%;left: 2%; width:50%;z-index: 20;">
+
+            <h1 id="angle1"
+                style="color: azure;font-size: 2em;font-weight: 600;text-shadow: 0 0 10px #00b3ff,0 0 20px #00b3ff,0 0 40px #00b3ff,0 0 80px #00b3ff,0 0 120px #00b3ff;">
+                Kreeda.ai
+            </h1>
+        </div>
+        <div class="calorie" id="calorie">
+            <img src="/static/images/calorie.png" alt="" width="50%" height="50%">
+            <div id="angle" style=" top :25%; left :30% ;color: black;width: fit-content;color:black;font-size: 60px;">
+                00</div>
+        </div>
+        <!-- <div class="gif" id="gif">
+            <img src="static/images/exercise.gif" width="100%" height="100%" alt="">
+        </div> -->
+
+        <script src="static/js/script.js"></script>
+    </div>
+
+</body>
+
+</html>
